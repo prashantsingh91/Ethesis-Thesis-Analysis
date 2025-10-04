@@ -344,6 +344,19 @@ def setup_openai():
         st.stop()
     return OpenAI(api_key=api_key)
 
+def generate_complete_analysis_with_custom_feedback(professor_feedback, researcher_feedback, industry_feedback):
+    """
+    Generate Chief Guide insights using custom feedback from user
+    """
+    try:
+        # Generate Chief Guide insights
+        chief_guide_insights = generate_chief_guide_insights(professor_feedback, researcher_feedback, industry_feedback)
+        
+        return chief_guide_insights
+        
+    except Exception as e:
+        return f"❌ **Error during analysis**: {str(e)}"
+
 def generate_complete_analysis():
     """
     Generate Chief Guide insights using pre-written professor feedback
@@ -1281,6 +1294,437 @@ def main():
     
     # Analysis section
     st.markdown("---")
+    st.markdown("### 📝 Enter Expert Feedback")
+    
+    # Create tabs for each reviewer
+    tab1, tab2, tab3 = st.tabs(["🏥 Medical Professor", "🔬 Researcher", "🏭 Industry Professional"])
+    
+    with tab1:
+        st.markdown("**Dr. Joshua Cornman-Homonoff - Medical College Professor**")
+        st.markdown("*Educational perspective, clinical methodology, and student development*")
+        professor_feedback = st.text_area(
+            "Enter Professor's Feedback:",
+            value="""# **MD Thesis Evaluation Report**
+
+**Title:** *Effect of Constraining Underdilated Transjugular Intrahepatic Portosystemic Shunts (TIPS)*
+
+**Candidate:** *[Name]*
+
+**Institution:** *Yale School of Medicine*
+
+---
+
+## **1. Educational Perspective – Clinical and Methodological Evaluation**
+
+**Reviewer:** *Dr. Joshua Cornman-Homonoff, MD*
+
+**(Advising Faculty – Department of Radiology & Biomedical Imaging, Yale School of Medicine)*
+
+This thesis demonstrates a solid understanding of **TIPS (Transjugular Intrahepatic Portosystemic Shunt)** procedures and a commendable application of research methodology. The work is both clinically meaningful and technically detailed, reflecting a mature grasp of interventional radiology principles.
+
+---
+
+### **Originality and Contribution**
+
+The focus on *constraining underdilated TIPS* represents a **novel procedural innovation** addressing the problem of stent self-expansion. This approach bridges **device mechanics with patient outcomes**, an underexplored domain in TIPS optimization.
+
+The findings on altered hemodynamics and increased revision rates provide valuable mechanistic insight with **direct translational relevance** for procedural refinement and shunt design.
+
+---
+
+### **Research Question and Objectives**
+
+The research question is precise, clinically relevant, and logically structured. The objective—to assess the technical and clinical outcomes of constrained TIPS—is well formulated.
+
+For future work, clearly defining **quantitative endpoints** (e.g., target gradient reduction or encephalopathy incidence) would enhance methodological transparency and reproducibility.
+
+---
+
+### **Literature Review**
+
+The review provides a strong background on TIPS evolution and procedural advancements. Incorporating **recent literature (2020–2024)** on adjustable or flow-regulated shunt systems would make the context more current and technically aligned with contemporary practice.
+
+---
+
+### **Methodology and Study Design**
+
+The **single-center retrospective cohort** design is appropriate and executed with rigor. Inclusion/exclusion criteria and stratification are clearly stated.
+
+The chosen analytical tools—*t-tests*, chi-square, and Kaplan-Meier survival analysis—are suitable for the dataset. Incorporation of **multivariate regression** or **propensity matching** could further strengthen causal inference.
+
+The procedural workflow and device specifications demonstrate strong technical literacy and reproducibility.
+
+---
+
+### **Results and Data Analysis**
+
+Results are **statistically coherent and well-presented**, with comprehensive tables and survival plots enhancing interpretability.
+
+The primary finding—that constrained TIPS restrict self-expansion but increase under-shunting and revision rates—is **clinically consistent** with shunt hemodynamics.
+
+Future analyses could benefit from reporting **confidence intervals or effect sizes** alongside p-values for greater interpretive precision.
+
+---
+
+### **Discussion and Interpretation**
+
+The discussion effectively links procedural mechanics with clinical outcomes. The rationale—that constrained shunts maintain smaller luminal diameters and higher gradients—is well supported.
+
+The author shows **critical awareness of study limitations**, including operator variability and follow-up heterogeneity. Expanding on **training implications and device design insights** would further enrich the educational perspective.
+
+---
+
+### **Ethical and Regulatory Compliance**
+
+All ethical and regulatory standards have been met. **IRB exemption** and **HIPAA-compliant data handling** are well documented, reflecting excellent professional integrity and awareness of clinical research protocols.
+
+---
+
+### **Structure, Organization, and Presentation**
+
+The document is well organized with a clear logical flow. Figures and tables are informative and aid comprehension. Minor refinements in formatting consistency and figure annotation could further enhance readability.
+
+---
+
+### **Writing Quality and Scholarly Tone**
+
+The writing is precise, professional, and technically fluent. The tone aligns with academic standards and demonstrates clarity in communicating complex procedural and analytical details.
+
+---
+
+### **Overall Impact and Defense Readiness**
+
+The candidate demonstrates **clinical insight, procedural understanding, and analytical competence**. The work reflects readiness for independent research and advanced training in interventional radiology.
+
+The thesis successfully bridges **clinical practice with research methodology**, making it a valuable contribution to the field and an excellent foundation for future academic and clinical endeavors.
+
+---
+
+## **Summary and Recommendations**
+
+### **Overall Assessment**
+
+This thesis represents a **strong contribution** to the field of interventional radiology, combining academic rigor with practical clinical relevance. The work demonstrates the candidate's ability to conduct **methodologically sound research** while addressing real-world clinical challenges.
+
+### **Key Strengths**
+
+- **Novel approach** to TIPS optimization
+- **Strong methodology** and statistical analysis
+- **Clear clinical relevance** and practical implications
+- **Excellent ethical compliance** and professional standards
+- **Well-written** and professionally presented
+
+### **Areas for Improvement**
+
+- **Enhanced literature review** with more recent studies
+- **Deeper statistical analysis** with multivariate approaches
+- **Expanded discussion** of clinical implications
+- **Industry perspective** integration
+
+### **Defense Readiness**
+
+The candidate demonstrates **high readiness** for thesis defense with strong understanding of methodology, results, and implications. The work is **defense-ready** with minor revisions.
+
+### **Final Recommendation**
+
+**PASS** - This thesis meets the standards for MD degree completion and represents a valuable contribution to the field. The candidate is **ready for defense** with minor revisions to enhance literature review and statistical analysis.
+
+---
+
+**Total Score: 8.5/10**
+
+**Defense Recommendation: APPROVED with minor revisions**""",
+            height=400,
+            help="Enter the detailed feedback from the Medical College Professor"
+        )
+    
+    with tab2:
+        st.markdown("**Dr. Michael Chen - Renowned Researcher**")
+        st.markdown("*Research excellence, innovation, and scientific rigor*")
+        researcher_feedback = st.text_area(
+            "Enter Researcher's Feedback:",
+            value="""# **MD Thesis Evaluation Report**
+
+**Title:** *Effect of Constraining Underdilated Transjugular Intrahepatic Portosystemic Shunts (TIPS)*
+
+**Candidate:** *[Name]*
+
+**Institution:** *Yale School of Medicine*
+
+---
+
+## **1. Research Excellence and Innovation Assessment**
+
+**Reviewer:** *Dr. Michael Chen, PhD*
+
+**(Senior Research Scientist – Interventional Radiology Research Lab, Johns Hopkins University)*
+
+This work represents a **methodologically sound investigation** into an important clinical question with significant implications for procedural optimization and patient outcomes.
+
+---
+
+### **Originality and Contribution**
+
+The research addresses a **clinically relevant gap** in TIPS optimization by examining the impact of constraining underdilated shunts. While the concept of constraining stents is not entirely novel, the **systematic evaluation of clinical outcomes** provides valuable empirical evidence.
+
+The contribution lies in the **quantitative assessment** of revision rates and hemodynamic changes, offering actionable insights for clinical practice.
+
+---
+
+### **Research Question and Objectives**
+
+The research question is **well-defined and clinically meaningful**. The objectives are clear and directly address the clinical need for optimizing TIPS procedures.
+
+The study design appropriately focuses on **patient-centered outcomes** while maintaining scientific rigor in data collection and analysis.
+
+---
+
+### **Literature Review**
+
+The literature review provides adequate background on TIPS development and current practices. However, it could benefit from **deeper integration of recent research** on stent mechanics and flow dynamics.
+
+Including more **comparative studies** and **meta-analyses** would strengthen the theoretical foundation and contextualize the current findings.
+
+---
+
+### **Methodology and Study Design**
+
+The **retrospective cohort design** is appropriate for the research question. The methodology is well-described with clear inclusion/exclusion criteria.
+
+The statistical approach is sound, though **propensity score matching** or **multivariate analysis** could help address potential confounding variables and strengthen the causal inference.
+
+---
+
+### **Results and Data Analysis**
+
+The results are **clearly presented** with appropriate statistical analysis. The use of survival analysis for revision rates is particularly appropriate.
+
+The findings demonstrate **statistical significance** and clinical relevance, with clear implications for procedural optimization.
+
+---
+
+### **Discussion and Interpretation**
+
+The discussion effectively interprets the results in the context of existing literature. The **limitations are appropriately acknowledged**, including the retrospective nature and potential selection bias.
+
+The implications for **clinical practice and future research** are well-articulated, providing a clear path forward for the field.
+
+---
+
+### **Ethical and Regulatory Compliance**
+
+The study demonstrates **excellent adherence** to ethical standards with proper IRB oversight and data protection measures.
+
+The **transparent reporting** of methodology and limitations reflects high ethical standards in clinical research.
+
+---
+
+### **Structure, Organization, and Presentation**
+
+The thesis is **well-organized** with logical flow and clear presentation of data. Figures and tables effectively support the narrative.
+
+The **academic writing style** is appropriate and maintains scientific rigor throughout.
+
+---
+
+### **Writing Quality and Scholarly Tone**
+
+The writing demonstrates **strong scientific communication skills** with clear, concise language appropriate for the target audience.
+
+The **technical terminology** is used correctly and consistently throughout the document.
+
+---
+
+### **Overall Impact and Defense Readiness**
+
+This work makes a **valuable contribution** to the field of interventional radiology and demonstrates the candidate's readiness for advanced research and clinical practice.
+
+The **defense readiness** is high, with the candidate well-prepared to discuss methodology, results, and implications.
+
+---
+
+## **Summary and Recommendations**
+
+### **Overall Assessment**
+
+This thesis represents a **strong contribution** to the field of interventional radiology, combining academic rigor with practical clinical relevance. The work demonstrates the candidate's ability to conduct **methodologically sound research** while addressing real-world clinical challenges.
+
+### **Key Strengths**
+
+- **Novel approach** to TIPS optimization
+- **Strong methodology** and statistical analysis
+- **Clear clinical relevance** and practical implications
+- **Excellent ethical compliance** and professional standards
+- **Well-written** and professionally presented
+
+### **Areas for Improvement**
+
+- **Enhanced literature review** with more recent studies
+- **Deeper statistical analysis** with multivariate approaches
+- **Expanded discussion** of clinical implications
+- **Industry perspective** integration
+
+### **Defense Readiness**
+
+The candidate demonstrates **high readiness** for thesis defense with strong understanding of methodology, results, and implications. The work is **defense-ready** with minor revisions.
+
+### **Final Recommendation**
+
+**PASS** - This thesis meets the standards for MD degree completion and represents a valuable contribution to the field. The candidate is **ready for defense** with minor revisions to enhance literature review and statistical analysis.
+
+---
+
+**Total Score: 8.2/10**
+
+**Defense Recommendation: APPROVED with minor revisions**""",
+            height=400,
+            help="Enter the detailed feedback from the Renowned Researcher"
+        )
+    
+    with tab3:
+        st.markdown("**Dr. Jennifer Martinez - Industry Medical Professional**")
+        st.markdown("*Clinical practice relevance, industry applications, and real-world impact*")
+        industry_feedback = st.text_area(
+            "Enter Industry Professional's Feedback:",
+            value="""# **MD Thesis Evaluation Report**
+
+**Title:** *Effect of Constraining Underdilated Transjugular Intrahepatic Portosystemic Shunts (TIPS)*
+
+**Candidate:** *[Name]*
+
+**Institution:** *Yale School of Medicine*
+
+---
+
+## **1. Industry and Clinical Practice Perspective**
+
+**Reviewer:** *Dr. Jennifer Martinez, MD*
+
+**(Senior Medical Director – Interventional Radiology, MedTech Solutions Inc.)*
+
+This thesis addresses a **practical clinical challenge** with direct implications for device design and procedural optimization in interventional radiology.
+
+---
+
+### **Originality and Contribution**
+
+The research provides **practical insights** into TIPS optimization that could influence device design and clinical protocols. The focus on constraining underdilated shunts addresses a **real-world clinical problem**.
+
+The contribution is particularly valuable for **industry applications** and could inform future device development and training protocols.
+
+---
+
+### **Research Question and Objectives**
+
+The research question is **highly relevant** to clinical practice and addresses a common challenge in TIPS procedures. The objectives are clear and actionable.
+
+The study design appropriately balances **clinical relevance** with scientific rigor, making it valuable for both academic and industry audiences.
+
+---
+
+### **Literature Review**
+
+The literature review provides **adequate context** for the research, though it could benefit from more **industry-focused perspectives** on device optimization and clinical outcomes.
+
+Including more **real-world clinical data** and **industry reports** would strengthen the practical relevance of the study.
+
+---
+
+### **Methodology and Study Design**
+
+The methodology is **clinically appropriate** and well-executed. The retrospective design is suitable for the research question and provides valuable real-world data.
+
+The **statistical analysis** is robust and appropriate for the clinical outcomes being measured.
+
+---
+
+### **Results and Data Analysis**
+
+The results provide **clear clinical insights** with practical implications for procedural optimization. The data presentation is effective and supports the study conclusions.
+
+The findings offer **actionable recommendations** for clinical practice and device optimization.
+
+---
+
+### **Discussion and Interpretation**
+
+The discussion effectively translates research findings into **practical clinical insights**. The implications for **device design and procedural optimization** are well-articulated.
+
+The **industry perspective** is valuable and provides a different lens through which to view the research findings.
+
+---
+
+### **Ethical and Regulatory Compliance**
+
+The study demonstrates **excellent compliance** with ethical and regulatory standards, which is crucial for industry applications and clinical implementation.
+
+The **transparent methodology** and **ethical oversight** enhance the credibility and applicability of the findings.
+
+---
+
+### **Structure, Organization, and Presentation**
+
+The thesis is **well-structured** and presents information in a logical, accessible manner. The **clinical focus** makes it particularly valuable for industry and clinical audiences.
+
+The **practical recommendations** are clearly presented and actionable.
+
+---
+
+### **Writing Quality and Scholarly Tone**
+
+The writing maintains **professional standards** while remaining accessible to clinical and industry audiences. The **technical accuracy** is high throughout.
+
+The **practical focus** of the writing makes it valuable for real-world applications.
+
+---
+
+### **Overall Impact and Defense Readiness**
+
+This work demonstrates **strong clinical insight** and practical understanding of interventional radiology procedures. The candidate shows readiness for **industry and clinical practice**.
+
+The **defense readiness** is high, with the candidate well-prepared to discuss clinical implications and practical applications.
+
+---
+
+## **Summary and Recommendations**
+
+### **Overall Assessment**
+
+This thesis represents a **strong contribution** to the field of interventional radiology, combining academic rigor with practical clinical relevance. The work demonstrates the candidate's ability to conduct **methodologically sound research** while addressing real-world clinical challenges.
+
+### **Key Strengths**
+
+- **Novel approach** to TIPS optimization
+- **Strong methodology** and statistical analysis
+- **Clear clinical relevance** and practical implications
+- **Excellent ethical compliance** and professional standards
+- **Well-written** and professionally presented
+
+### **Areas for Improvement**
+
+- **Enhanced literature review** with more recent studies
+- **Deeper statistical analysis** with multivariate approaches
+- **Expanded discussion** of clinical implications
+- **Industry perspective** integration
+
+### **Defense Readiness**
+
+The candidate demonstrates **high readiness** for thesis defense with strong understanding of methodology, results, and implications. The work is **defense-ready** with minor revisions.
+
+### **Final Recommendation**
+
+**PASS** - This thesis meets the standards for MD degree completion and represents a valuable contribution to the field. The candidate is **ready for defense** with minor revisions to enhance literature review and statistical analysis.
+
+---
+
+**Total Score: 8.0/10**
+
+**Defense Recommendation: APPROVED with minor revisions**""",
+            height=400,
+            help="Enter the detailed feedback from the Industry Medical Professional"
+        )
+    
+    st.markdown("---")
     st.markdown("### 🧠 Generate Strategic Analysis")
     
     # Add some context about what the analysis includes
@@ -1312,6 +1756,11 @@ def main():
     
     with col_btn2:
         if st.button("🚀 Generate Chief Guide Insights & Summary", type="primary", use_container_width=True):
+            # Validate that feedback has been entered
+            if not professor_feedback.strip() or not researcher_feedback.strip() or not industry_feedback.strip():
+                st.error("❌ **Please enter feedback for all three reviewers before generating analysis.**")
+                st.stop()
+            
             # Create a more engaging loading experience
             progress_bar = st.progress(0)
             status_text = st.empty()
@@ -1347,8 +1796,8 @@ def main():
                        "• Preparing comprehensive insights\n\n"
                        "Please wait while we generate your personalized analysis...")
             
-            # Generate analysis
-            analysis_result = generate_complete_analysis()
+            # Generate analysis with custom feedback
+            analysis_result = generate_complete_analysis_with_custom_feedback(professor_feedback, researcher_feedback, industry_feedback)
             
             # Clear the loading message
             loading_container.empty()
