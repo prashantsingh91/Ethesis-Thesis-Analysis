@@ -1188,11 +1188,20 @@ def main():
             """)
         
         # Settings
-        with st.expander("⚙️ Settings"):
-            st.markdown("**Analysis Options:**")
-            show_detailed = st.checkbox("Show Detailed Analysis", value=True)
-            include_recommendations = st.checkbox("Include Recommendations", value=True)
-            defense_prep = st.checkbox("Defense Preparation", value=True)
+        st.markdown("### ⚙️ Settings")
+        st.markdown("**Analysis Options:**")
+        show_detailed = st.checkbox("Show Detailed Analysis", value=True)
+        include_recommendations = st.checkbox("Include Recommendations", value=True)
+        defense_prep = st.checkbox("Defense Preparation", value=True)
+        
+        # Additional settings
+        st.markdown("**Display Options:**")
+        show_progress = st.checkbox("Show Progress Steps", value=True)
+        auto_scroll = st.checkbox("Auto-scroll to Results", value=True)
+        
+        # Test button to verify sidebar is working
+        if st.button("🔧 Test Settings", use_container_width=True):
+            st.success("Settings are working!")
         
         st.markdown("---")
         
