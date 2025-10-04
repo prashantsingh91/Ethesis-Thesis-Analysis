@@ -1331,12 +1331,31 @@ def main():
                 import time
                 time.sleep(0.5)  # Small delay for better UX
             
-            # Clear progress indicators
-            progress_bar.empty()
-            status_text.empty()
+            # Show that AI is working
+            status_text.text("🤖 AI is generating your analysis... This may take 30-60 seconds")
+            progress_bar.progress(1.0)
+            
+            # Create a container for the loading message
+            loading_container = st.container()
+            with loading_container:
+                st.info("🔄 **AI Analysis in Progress**\n\n"
+                       "The AI is now processing your thesis analysis. This typically takes 30-60 seconds.\n\n"
+                       "**What's happening:**\n"
+                       "• Analyzing expert evaluations\n"
+                       "• Synthesizing feedback from all perspectives\n"
+                       "• Generating strategic recommendations\n"
+                       "• Preparing comprehensive insights\n\n"
+                       "Please wait while we generate your personalized analysis...")
             
             # Generate analysis
             analysis_result = generate_complete_analysis()
+            
+            # Clear the loading message
+            loading_container.empty()
+            
+            # Clear progress indicators
+            progress_bar.empty()
+            status_text.empty()
             
             # Display results with enhanced styling
             st.markdown("""
